@@ -3,22 +3,22 @@ import ReactDOM from "react-dom";
 
 import "./styles.css";
 
-const App = () => {
-  const [count, setCount] = useState(0);
-  const [email, setEmail] = useState("");
-  const updateEmail = e => {
-    const {
-      target: { value }
-    } = e;
-    setEmail(value);
+const useInput = initialvalue => {
+  const [value, setValue] = useState(initialvalue);
+  const onChange = e => {
+    console.log(e.target);
   };
+  return { value, onChange };
+};
+
+const App = () => {
+  const name = useInput("Mr.");
+  console.log({ ...name });
   return (
-    <>
-      {count}
-      <button onClick={() => setCount(count + 1)}>increment</button>
-      <button onClick={() => setCount(count - 1)}>decrement</button>
-      <input placeholder="email" value={email} onChange={updateEmail} />
-    </>
+    <div className="App">
+      <h1>hello</h1>
+      <input placeholder="Name" {...name} />
+    </div>
   );
 };
 
