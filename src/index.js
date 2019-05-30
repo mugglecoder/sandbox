@@ -1,29 +1,26 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import ReactDOM from "react-dom";
 
 import "./styles.css";
 
-class App extends Component {
-  state = {
-    count: 0
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [email, setEmail] = useState("");
+  const updateEmail = e => {
+    const {
+      target: { value }
+    } = e;
+    setEmail(value);
   };
-
-  modify = n => {
-    this.setState({
-      count: n
-    });
-  };
-
-  render() {
-    const { count } = this.state;
-    return (
-      <>
-        <div>{count}</div>
-        <button onClick={() => this.modify(count + 1)}>Increment</button>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      {count}
+      <button onClick={() => setCount(count + 1)}>increment</button>
+      <button onClick={() => setCount(count - 1)}>decrement</button>
+      <input placeholder="email" value={email} onChange={updateEmail} />
+    </>
+  );
+};
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
